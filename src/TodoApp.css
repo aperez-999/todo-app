@@ -1,0 +1,394 @@
+:root {
+  /* Enhanced color palette with more depth and vibrancy */
+  --primary-color: #6A5AFF;
+  --secondary-color: #FF6B8A;
+  --background-color: #F4F6F9;
+  --card-bg-color: #FFFFFF;
+  --border-color: #E2E8F0;
+  --input-border-color: #CBD5E1;
+  --input-focus-border-color: #6A5AFF;
+  --todo-bg-color: #FAFBFC;
+  --todo-hover-bg: #F3F4F6;
+  --todo-completed-bg: #E6F4EA;
+  --text-color: #2D3748;
+  --text-muted: #718096;
+  --text-light: #FFFFFF;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  
+  /* Softer gradient with more subtle transition */
+  --gradient-start: #F8FAFC;
+  --gradient-end: #EEF1F6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  background-color: #1a1a2e ;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.6;
+  perspective: 1500px;
+  overflow-x: hidden;
+}
+
+.todo-container {
+  background-color: var(--card-bg-color);
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 50px -12px var(--shadow-color), 
+    0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  width: 600px;
+  max-width: 95%;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(50px) rotateX(-15deg);
+  opacity: 0;
+  animation: elegantSlideIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  border: 1px solid var(--border-color);
+}
+
+@keyframes elegantSlideIn {
+  0% {
+    transform: translateY(50px) rotateX(-15deg) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+h1 {
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-align: center;
+  background: linear-gradient(45deg, var(--primary-color), #9381FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+@keyframes titleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+    letter-spacing: 10px;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: 2px;
+  }
+}
+
+.todo-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.todo-form input {
+  padding: 16px 28px;
+  width: 80%;
+  border: 2px solid var(--input-border-color);
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: var(--todo-bg-color);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  margin-right: 15px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.todo-form input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 
+    0 0 0 4px rgba(106, 90, 255, 0.2),
+    0 8px 20px rgba(106, 90, 255, 0.1);
+  transform: translateY(-3px);
+}
+
+.todo-form button {
+  padding: 16px 28px;
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 
+    0 10px 25px rgba(106, 90, 255, 0.3),
+    0 5px 10px rgba(106, 90, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.todo-form button:hover {
+  background-color: #5A4AFF;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 15px 30px rgba(106, 90, 255, 0.4),
+    0 8px 15px rgba(106, 90, 255, 0.3);
+}
+
+.clear-all-btn {
+  padding: 16px 28px;
+  background-color: var(--secondary-color);
+  color: var(--text-light);
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  margin-top: 25px;
+  width: 100%;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 
+    0 10px 25px rgba(255, 107, 138, 0.3),
+    0 5px 10px rgba(255, 107, 138, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealClearBtn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.5s;
+}
+
+@keyframes revealClearBtn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.clear-all-btn:hover {
+  background-color: #FF4D75;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 
+    0 15px 30px rgba(255, 107, 138, 0.4),
+    0 8px 15px rgba(255, 107, 138, 0.3);
+}
+
+.todo-list {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-top: 25px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
+  position: relative;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--todo-bg-color);
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.05);
+  transform: translateX(-20px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.todo-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.todo-item:hover::before {
+  background-color: var(--primary-color);
+}
+
+.todo-item:hover {
+  transform: translateX(0) scale(1.02);
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: var(--todo-hover-bg);
+}
+
+.todo-item.completed {
+  background-color: var(--todo-completed-bg);
+  animation: completeTask 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes completeTask {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.todo-item input[type="checkbox"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--input-border-color);
+  border-radius: 6px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.todo-item input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  animation: checkboxPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes checkboxPop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.todo-item input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+}
+
+.todo-item .delete-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.todo-item .delete-btn:hover {
+  color: #FF3D3D;
+  transform: scale(1.2) rotate(180deg);
+  opacity: 1;
+}
+
+@keyframes todoAdd {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) scale(0.7);
+    background-color: var(--todo-bg-color);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translateX(10%) scale(1.05);
+    background-color: var(--todo-bg-color);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    background-color: var(--todo-bg-color);
+  }
+}
+
+.todo-item.add-animation {
+  animation: todoAdd 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--todo-bg-color) !important;
+  opacity: 1 !important;
+}
+
+/* Ensure initial state doesn't cause issues */
+.todo-item {
+  opacity: 1 !important;
+}
+
+@keyframes todoDelete {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%) scale(0.5);
+  }
+}
+
+.todo-item.add-animation {
+  animation: todoAdd 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.todo-item.delete-animation {
+  animation: todoDelete 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@media (max-width: 600px) {
+  .todo-container {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .todo-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .todo-form input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .todo-form button {
+    width: 100%;
+  }
+}
